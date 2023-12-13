@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use LaravelLegends\PtBrValidator\Rules\CpfOuCnpj;
 
 class UserRequest extends FormRequest
 {
@@ -26,20 +27,21 @@ class UserRequest extends FormRequest
     {
         $userId = $this->route('user');
 
-        return [
+        $rules = [
             'nome' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/',
             'cpf_cnpj' => [
                 'required',
-                'string',
-                'max:20',
                 Rule::unique('users')->ignore($userId),
+                new CpfOuCnpj,
             ],
             'nome_social' => 'nullable|string|max:255|regex:/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/',
             'data_nascimento' => 'date',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
+
+        return $rules;
     }
-    
+
     public function messages()
     {
         return [
@@ -49,8 +51,6 @@ class UserRequest extends FormRequest
             'nome.regex' => 'O campo Nome não pode conter caracteres especiais',
 
             'cpf_cnpj.required' => 'O campo CPF/CNPJ é obrigatório.',
-            'cpf_cnpj.string' => 'O campo CPF/CNPJ deve conter apenas números. Por favor, verifique e insira novamente.',
-            'cpf_cnpj.max' => 'O campo CPF/CNPJ não pode ter mais de 20 caracteres.',
             'cpf_cnpj.unique' => 'Desculpe, não foi possível concluir sua solicitação. Se o CPF ou CNPJ fornecido já estiver cadastrado, entre em contato conosco para obter assistência.',
 
             'nome_social.string' => 'O campo não pode ter caracteres especiais.',
@@ -62,6 +62,7 @@ class UserRequest extends FormRequest
             'foto.image' => 'O arquivo enviado deve ser uma imagem.',
             'foto.mimes' => 'A imagem deve ser dos tipos: jpeg, png, jpg, gif.',
             'foto.max' => 'A imagem não pode ter mais de 2MB.',
+            'foto.required' => 'O campo de Imagem é obrigatório',
         ];
     }
 }
