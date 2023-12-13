@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
+use App\Traits\UserImageTrait;
 use App\Models\User;
 
 class UserController extends Controller
 {
+    use UserImageTrait;
+
     public $user;
+    
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -18,7 +21,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View 
      */
     public function index()
     {
@@ -27,9 +30,9 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new user.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View 
      */
     public function create()
     {
@@ -37,7 +40,7 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new user in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -46,20 +49,14 @@ class UserController extends Controller
     {
         $user = $this->user;
 
-        if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
-            $image = $request->file('foto');
-            $destinationPath = public_path('/img');
-            $extension = '.' . $image->getClientOriginalExtension();
-            $imageName = (string) Str::uuid() . $extension;
-            $image->move($destinationPath, $imageName);
-        }
+        $imageName = $this->uploadImage($request, 'foto', public_path('/img'));
 
         $created = $user->create([
             'nome' => $request->input('nome'),
             'cpf_cnpj' => $request->input('cpf_cnpj'),
             'nome_social' => $request->input('nome_social'),
             'data_nascimento' => $request->input('data_nascimento'),
-            'foto' => isset($imageName) ? $imageName : null,
+            'foto' => $imageName,
         ]);
 
         if ($created) {
@@ -73,7 +70,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function show($id)
     {
@@ -81,7 +78,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the user.
      *
      * @param  int  $id
      * @return 
@@ -92,7 +89,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified user in storage.
      *
      * @param  \App\Http\Requests\UserRequest  $request
      * @param  int  $id
@@ -105,28 +102,18 @@ class UserController extends Controller
 
         $existingImage = $user->where('id', $id)->first()->foto;
 
+        $updatedImage = $this->updateImage($request, 'foto', public_path('/img/' . $existingImage));
+        
         if ($request->hasFile('foto')) {
-            $requestImage = $request->file('foto');
-            $destinationPath = public_path('/img');
-            $extension = '.' . $requestImage->getClientOriginalExtension();
-            $updatedImage = (string) Str::uuid() . $extension;
-
-            $requestImage->move($destinationPath, $updatedImage);
-
-            if (!empty($existingImage)) {
-                $oldImagePath = public_path('/img/' . $existingImage);
-                if (File::exists($oldImagePath)) {
-                    File::delete($oldImagePath);
-                }
-            }
+            $this->deleteImage(public_path('/img/' . $existingImage));
         }
-
+        
         $updated = $user->where('id', $id)->update([
             'nome' => $request->input('nome'),
             'cpf_cnpj' => $request->input('cpf_cnpj'),
             'nome_social' => $request->input('nome_social'),
             'data_nascimento' => $request->input('data_nascimento'),
-            'foto' => $updatedImage ?? $existingImage,
+            'foto' => $request->hasFile('foto') ? $updatedImage : $existingImage,
         ]);
 
         if ($updated) {
@@ -137,7 +124,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage and redirect to users.
+     * Remove the specified user from storage and redirect to users list.
      *
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
