@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use App\Models\User;
 
 class UserController extends Controller
@@ -44,12 +45,12 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $user = $this->user;
-        // image upload
+
         if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
             $image = $request->file('foto');
             $destinationPath = public_path('/img');
-            $extension = $image->getClientOriginalExtension();
-            $imageName = md5($image->getClientOriginalName() . strtotime('now')) . '.' . $extension;
+            $extension = '.' . $image->getClientOriginalExtension();
+            $imageName = (string) Str::uuid() . $extension;
             $image->move($destinationPath, $imageName);
         }
 
@@ -101,21 +102,23 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         $user = $this->user;
-        
-        if ($request->hasFile('foto')) {
-            $oldImage = $user->where('id', $id)->first()->foto;
-            $oldImagePath = public_path('/img/' . $oldImage);
-            
-            if (File::exists($oldImagePath)) {
-                File::delete($oldImagePath);
-            }
 
+        $existingImage = $user->where('id', $id)->first()->foto;
+
+        if ($request->hasFile('foto')) {
             $requestImage = $request->file('foto');
             $destinationPath = public_path('/img');
-            $extension = $requestImage->getClientOriginalExtension();
-            $imageName = md5($requestImage->getClientOriginalName() . strtotime('now')) . '.' . $extension;
-            
-            $requestImage->move($destinationPath, $imageName);
+            $extension = '.' . $requestImage->getClientOriginalExtension();
+            $updatedImage = (string) Str::uuid() . $extension;
+
+            $requestImage->move($destinationPath, $updatedImage);
+
+            if (!empty($existingImage)) {
+                $oldImagePath = public_path('/img/' . $existingImage);
+                if (File::exists($oldImagePath)) {
+                    File::delete($oldImagePath);
+                }
+            }
         }
 
         $updated = $user->where('id', $id)->update([
@@ -123,7 +126,7 @@ class UserController extends Controller
             'cpf_cnpj' => $request->input('cpf_cnpj'),
             'nome_social' => $request->input('nome_social'),
             'data_nascimento' => $request->input('data_nascimento'),
-            'foto' => isset($imageName) ? $imageName : null,
+            'foto' => $updatedImage ?? $existingImage,
         ]);
 
         if ($updated) {
@@ -132,7 +135,7 @@ class UserController extends Controller
 
         return redirect('users')->with('message', 'Erro ao atualizar o cadastro, tente novamente.');
     }
-    
+
     /**
      * Remove the specified resource from storage and redirect to users.
      *
@@ -141,6 +144,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $user = $this->user->find($id);
+
+        $imagePath = public_path('/img/' . $user->foto);
+        
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+
         $this->user->where('id', $id)->delete();
 
         return redirect('users');
