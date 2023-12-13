@@ -18,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('users', UserController::class);
+Route::fallback(function () {
+  return view('404');
+});
