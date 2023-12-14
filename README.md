@@ -1,64 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
+<h1 align="center">CRUD Laravel</h1>
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <a href="#como-rodar-o-projeto"/> 
+  <a href="#construido-com">Construido com</a> · 
+  <a href="#screenshots">Screenshots</a>  · 
+  <a href="#consideraçoes-finais">Considerações Finais</a>  · 
 </p>
+<div align="center">
+    <img src="./.github/user-table"/>
+</div>
+      
+## Como Rodar o Projeto
 
-## About Laravel
+1. **Requisitos do Ambiente:**
+   - Certifique-se de ter o PHP instalado. Você pode verificar a instalação usando o comando `php -v` no terminal.
+   - Instale o Composer, que é o gerenciador de dependências do PHP. Consulte o [site oficial do Composer](https://getcomposer.org/) para obter instruções de instalação.
+   - Instale o Laravel Installer globalmente usando o Composer: `composer global require laravel/installer`.
+   - Certifique-se de ter um servidor de banco de dados (como MySQL, PostgreSQL ou SQLite) instalado e configurado.
+   - Instale o Node.js e o npm para gerenciar dependências JavaScript. Consulte o [site oficial do Node.js](https://nodejs.org/) para obter instruções de instalação.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+2. **Clone o Projeto:**
+   - Clone o repositório do projeto do Laravel para o seu ambiente local usando Git. Vá para o diretório onde deseja armazenar o projeto e execute o seguinte comando:
+     ```bash
+     git clone https://github.com/adriel-mp3/crud-laravel.git nome-do-projeto
+     ```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+3. **Instale as Dependências do PHP:**
+   - Navegue até o diretório do projeto e execute o seguinte comando para instalar as dependências do PHP:
+     ```bash
+     cd nome-do-projeto
+     composer install
+     ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+4. **Instale as Dependências do JavaScript (Tailwind CSS):**
+   - Execute o seguinte comando para instalar as dependências do JavaScript usando o npm:
+     ```bash
+     npm install
+     ```
 
-## Learning Laravel
+5. **Crie um Arquivo de Configuração do Ambiente:**
+   - Copie o arquivo `.env.example` para um novo arquivo chamado `.env`. Configure as informações do banco de dados e outras configurações necessárias no arquivo `.env`.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+6. **Gere a Chave de Aplicação:**
+   - Execute o seguinte comando para gerar a chave de aplicação no Laravel:
+     ```bash
+     php artisan key:generate
+     ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+7. **Migrar o Banco de Dados:**
+   - Execute as migrações do banco de dados para criar as tabelas necessárias:
+     ```bash
+     php artisan migrate
+     ```
 
-## Laravel Sponsors
+8. **Inicie o Servidor Embutido:**
+   - Inicie o servidor embutido do Laravel com o seguinte comando:
+     ```bash
+     php artisan serve
+     ```
+     O servidor será iniciado em `http://localhost:8000` por padrão.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+9. **Compilar os Recursos JavaScript e CSS:**
+   - Execute o seguinte comando para compilar os recursos JavaScript e CSS:
+     ```bash
+     npm run dev
+     ```
 
-### Premium Partners
+10. **Acesse o Projeto:**
+    - Abra seu navegador e acesse `http://localhost:8000` para ver o projeto Laravel em execução.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Construido com
+- <a href="https://laravel.com/">Laravel 10</a>
+- <a href="https://tailwindcss.com/">Tailwind CSS</a>
+- <a href="https://www.php.net/">PHP 7.4.8</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">JavaScript</a>
+- <a href="https://jquery.com/">JQuery</a>
+- <a href="https://robinherbots.github.io/Inputmask/">Input Mask (CPF & CNPJ)</a>
+- <a href="https://github.com/LaravelLegends/pt-br-validator">LaravelLegends/pt-br-validator (Validação server-side CPF & CNPJ)</a>
+- <a href="https://figma.com/">Figma (Prototipação)</a>
 
-## Contributing
+### Motivação para escolhas específicas:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Utilizei o Tailwind CSS pela facilidade de criação de telas personalizadas e pela rapidez no desenvolvimento. O Laravel 10 e o PHP 7.4.8 fornecem uma base sólida para o desenvolvimento back-end, enquanto o JQuery simplifica a manipulação do DOM. O Input Mask e o LaravelLegends/pt-br-validator são essenciais para garantir a validação adequada dos dados do usuário. O Figma foi utilizado para prototipar e visualizar o design antes da implementação.
+<hr/>
 
-## Code of Conduct
+## Screenshots
+Algumas imagens das operações principais do projeto:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Listar Usuários
 
-## Security Vulnerabilities
+<img src="./.github/user-table"/>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Editar Usuário
 
-## License
+<img src="./.github/user-table"/>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+### Visualizar Usuário
+
+<img src="./.github/user-table"/>
+
+### Cadastrar Usuário
+
+<img src="./.github/user-table"/>
+
+## Considerações Finais
+
+Este projeto reflete meu comprometimento em entregar resultados, mesmo ao lidar com tecnologias novas. Foi feito com carinho e dedicação, com espaço para melhorias é claro. Porém o mais importante para mim é estar disposto a sempre aprender e evoluir.
+
+## Obrigado!
+
+Agradeço pela confiança e parceria durante todo o processo. Estou à disposição para qualquer esclarecimento adicional e espero que possamos conversar novamente no futuro. Até logo!
+
+## Links
+
+<a href="https://www.linkedin.com/in/adriel-santos-dev/">Linkedin</a>
