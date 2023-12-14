@@ -34,9 +34,9 @@ class UserRequest extends FormRequest
                 Rule::unique('users')->ignore($userId),
                 new CpfOuCnpj,
             ],
-            'nome_social' => 'nullable|string|max:255|regex:/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/',
-            'data_nascimento' => 'date',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'nome_social' => 'sometimes|nullable|string|max:255|regex:/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/',
+            'data_nascimento' => 'required|date',
+            'foto' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
         ];
 
         return $rules;
@@ -58,6 +58,7 @@ class UserRequest extends FormRequest
             'nome_social.regex' => 'O campo Nome Social não pode conter caracteres especiais',
 
             'data_nascimento.date' => 'O campo data de nascimento deve ser uma data válida.',
+            'data_nascimento.required' => 'O campo Data de Nascimento é obrigatório',
 
             'foto.image' => 'O arquivo enviado deve ser uma imagem.',
             'foto.mimes' => 'A imagem deve ser dos tipos: jpeg, png, jpg, gif.',
