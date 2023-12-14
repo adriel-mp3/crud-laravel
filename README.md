@@ -3,10 +3,10 @@
   <a href="#como-rodar-o-projeto"/> 
   <a href="#construido-com">Construido com</a> · 
   <a href="#screenshots">Screenshots</a>  · 
-  <a href="#consideraçoes-finais">Considerações Finais</a>  · 
+  <a href="#considerações-finais">Considerações Finais</a>  
 </p>
 <div align="center">
-    <img src=".github/user-table"/>
+    <img src="./.github/user-table.png"/>
 </div>
       
 ## Como Rodar o Projeto
@@ -88,24 +88,24 @@ Algumas imagens das operações principais do projeto:
 
 ### Listar Usuários
 
-<img src=".github/user-table"/>
+<img src="./.github/user-table.png"/>
 
 ### Editar Usuário
 
-<img src=".github/user-table"/>
+<img src="./.github/user-edit.png"/>
 
 
 ### Visualizar Usuário
 
-<img src=".github/user-table"/>
+<img src="./.github/user-view.png"/>
 
 ### Cadastrar Usuário
 
-<img src=".github/user-table"/>
+<img src="./.github/user-create.png"/>
 
 ## Considerações Finais
 
-Este projeto reflete meu comprometimento em entregar resultados, mesmo ao lidar com tecnologias novas. Foi feito com carinho e dedicação, com espaço para melhorias é claro. Porém o mais importante para mim é estar disposto a sempre aprender e evoluir.
+Este projeto reflete meu comprometimento em entregar resultados, mesmo ao lidar com tecnologias novas. Foi feito com carinho e dedicação, com espaço para melhorias, é claro. Porém o mais importante para mim é estar disposto a sempre aprender e evoluir.
 
 ## Obrigado!
 
