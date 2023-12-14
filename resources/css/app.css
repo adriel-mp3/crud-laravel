@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .button {
+    @apply py-2 text-white px-3 rounded-lg border-[1px] font-bold tracking-wide shadow-md transition ease-in-out delay-[3ms] hover:shadow-lg
+  }
+}
