@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('nome', 50);
             $table->date('data_nascimento');
             $table->string('cpf_cnpj')->unique()->regex('/^\d{11,14}$/');
-            $table->string('foto')->nullable();
+            $table->string('foto');
             $table->string('nome_social', 50)->nullable();
             $table->timestamps();
         });
