@@ -6,7 +6,7 @@
   <a href="#consideraçoes-finais">Considerações Finais</a>  · 
 </p>
 <div align="center">
-    <img src="./.github/user-table"/>
+    <img src=".github/user-table"/>
 </div>
       
 ## Como Rodar o Projeto
@@ -88,20 +88,20 @@ Algumas imagens das operações principais do projeto:
 
 ### Listar Usuários
 
-<img src="./.github/user-table"/>
+<img src=".github/user-table"/>
 
 ### Editar Usuário
 
-<img src="./.github/user-table"/>
+<img src=".github/user-table"/>
 
 
 ### Visualizar Usuário
 
-<img src="./.github/user-table"/>
+<img src=".github/user-table"/>
 
 ### Cadastrar Usuário
 
-<img src="./.github/user-table"/>
+<img src=".github/user-table"/>
 
 ## Considerações Finais
 
