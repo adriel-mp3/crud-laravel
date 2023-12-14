@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UserException;
 use App\Http\Requests\UserRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\File;
 use App\Traits\UserImageTrait;
 use App\Models\User;
@@ -12,7 +14,7 @@ class UserController extends Controller
     use UserImageTrait;
 
     public $user;
-    
+
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -67,14 +69,20 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified user.
      *
      * @param  int  $id
-     * @return void
+     * @return \Illuminate\Contracts\View\View 
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        if (!$user) {
+            abort(404); 
+        }
+    
+        return view('user.show', ['user' => $user]);
     }
 
     /**
@@ -103,11 +111,11 @@ class UserController extends Controller
         $existingImage = $user->where('id', $id)->first()->foto;
 
         $updatedImage = $this->updateImage($request, 'foto', public_path('/img/' . $existingImage));
-        
+
         if ($request->hasFile('foto')) {
             $this->deleteImage(public_path('/img/' . $existingImage));
         }
-        
+
         $updated = $user->where('id', $id)->update([
             'nome' => $request->input('nome'),
             'cpf_cnpj' => $request->input('cpf_cnpj'),
@@ -134,7 +142,7 @@ class UserController extends Controller
         $user = $this->user->find($id);
 
         $imagePath = public_path('/img/' . $user->foto);
-        
+
         if (File::exists($imagePath)) {
             File::delete($imagePath);
         }
