@@ -12,7 +12,7 @@
 
         <x-primmary-heading title="Lista de Usuários" description="Visualize todos usuários cadastrados." />
 
-        @if (isset($users))
+        @if (isset($users) && count($users) > 0)
             <x-user-table :users="$users" />
         @else
             <hr class="mb-4">
