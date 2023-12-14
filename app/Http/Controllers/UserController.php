@@ -26,7 +26,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->user->all();
-        return view('users', ['users' => $users]);
+        return view('user.index', ['users' => $users]);
     }
 
     /**
@@ -36,14 +36,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user_create');
+        return view('user.create');
     }
 
     /**
      * Store a new user in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserRequest $request)
     {
@@ -60,10 +60,10 @@ class UserController extends Controller
         ]);
 
         if ($created) {
-            return redirect('users')->with('message', 'Usuário cadastrado com sucesso.');
+            return redirect()->route('users.index')->with('message', 'Usuário cadastrado com sucesso.');
         }
 
-        return redirect('users')->with('error', 'Erro ao cadastrar o usuário, tente novamente.');
+        return redirect()->route('users.index')->with('error', 'Erro ao cadastrar o usuário, tente novamente.');
     }
 
     /**
@@ -85,7 +85,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user_edit', ['user' => $user]);
+        return view('user.edit', ['user' => $user]);
     }
 
     /**
@@ -93,7 +93,7 @@ class UserController extends Controller
      *
      * @param  \App\Http\Requests\UserRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
 
     public function update(UserRequest $request, $id)
@@ -117,10 +117,10 @@ class UserController extends Controller
         ]);
 
         if ($updated) {
-            return redirect('users')->with('message', 'Cadastro atualizado com sucesso.');
+            return redirect()->route('users.index')->with('message', 'Cadastro atualizado com sucesso.');
         }
 
-        return redirect('users')->with('message', 'Erro ao atualizar o cadastro, tente novamente.');
+        return redirect()->route('users.index')->with('message', 'Erro ao atualizar o cadastro, tente novamente.');
     }
 
     /**
@@ -141,6 +141,6 @@ class UserController extends Controller
 
         $this->user->where('id', $id)->delete();
 
-        return redirect('users');
+        return redirect()->route('users.index');
     }
 }
