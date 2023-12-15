@@ -36,7 +36,7 @@ class UserRequest extends FormRequest
             ],
             'nome_social' => 'nullable|string|max:255|regex:/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/',
             'data_nascimento' => 'date',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
         ];
 
         return $rules;
@@ -63,6 +63,7 @@ class UserRequest extends FormRequest
             'foto.mimes' => 'A imagem deve ser dos tipos: jpeg, png, jpg, gif.',
             'foto.max' => 'A imagem não pode ter mais de 2MB.',
             'foto.required' => 'O campo de Imagem é obrigatório',
+            'foto.sometimes' => 'O campo de Imagem é obrigatório',
         ];
     }
 }
