@@ -105,12 +105,4 @@ Algumas imagens das operações principais do projeto:
 
 ## Considerações Finais
 
-Este projeto reflete meu comprometimento em entregar resultados, mesmo ao lidar com tecnologias novas. Foi feito com carinho e dedicação, com espaço para melhorias, é claro. Porém o mais importante para mim é estar disposto a sempre aprender e evoluir.
-
-## Obrigado!
-
-Agradeço pela confiança e parceria durante todo o processo. Estou à disposição para qualquer esclarecimento adicional e espero que possamos conversar novamente no futuro. Até logo!
-
-## Links
-
 <a href="https://www.linkedin.com/in/adriel-santos-dev/">Linkedin</a>
